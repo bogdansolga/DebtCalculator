@@ -35,7 +35,9 @@ public class PaymentsHandler {
         for (Person person : persons) {
             //System.out.println("payer: " + payer + ", person: " + person);
             if (!person.equals(payer)) {
-                //System.out.println("\t\t" + id + "adaugam o datorie de " + amountPerPerson + " de la " + person + " catre " + payer);
+                if (DEBUG) {
+                    System.out.println("\t\t" + id + "adaugam o datorie de " + amountPerPerson + " de la " + person + " catre " + payer);
+                }
                 person.addDebt(payer, amountPerPerson);
             } else {
                 person.addPayment(payment);
@@ -63,7 +65,8 @@ public class PaymentsHandler {
                     amount = personsDebts.get(person);
                     if (DEBUG) {
                         System.out.println("\t" + paymentId + amount + " catre " + person.getName());
-                        System.out.println("\t\t" + paymentId + "Scadem " + amountPerPerson + " din datoriile lui " + payer + " catre " + person);
+                        System.out.println("\t\t" + paymentId + "Scadem " + amountPerPerson + " din datoriile lui " +
+                                payer + " catre " + person + " si din datoria lui " + person + " catre " + payer);
                     }
 
                     remaining = amount - amountPerPerson;
@@ -73,7 +76,8 @@ public class PaymentsHandler {
                             System.out.println("\t\t" + paymentId + payer + " trebuie sa-i mai dea " + remaining + " lui " + person);
                         }
 
-                        payer.addDebt(person, remaining);
+                        payer.setDebt(person, remaining);
+                        person.removedDebt(payer);
                     } else {
                         if (remaining < 0) {
                             remaining = Math.abs(remaining);

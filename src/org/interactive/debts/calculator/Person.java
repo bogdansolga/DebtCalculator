@@ -80,11 +80,18 @@ public class Person {
     }
 
     public void displayPayments() {
-        if (payments.size() > 0) {
-            System.out.println(name + " a facut " + payments.size() + " plati:");
-            for (Payment payment : payments) {
-                System.out.println("\t - " + payment.getAmount() + " pentru " + payment.getDescription());
+        final int howMany = payments.size();
+        if (howMany > 0) {
+            if (howMany == 1) {
+                final Payment payment = payments.iterator().next();
+                System.out.println(name + " a facut o plata - " + payment.getAmount() + " pentru " + payment.getDescription());
+            } else {
+                System.out.println(name + " a facut " + howMany + " plati:");
+                for (Payment payment : payments) {
+                    System.out.println("\t - " + payment.getAmount() + " pentru " + payment.getDescription());
+                }
             }
+
         } else {
             System.out.println(name + " nu a facut nici o plata");
         }
