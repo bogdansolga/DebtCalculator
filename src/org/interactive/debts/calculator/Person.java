@@ -51,32 +51,11 @@ public class Person {
 
         debtForPerson += amount;
 
-        //System.out.println("\t" + name + " are datorie " + debtForPerson + " catre " + person);
         debts.put(person, debtForPerson);
     }
 
     public void setDebt(Person person, Double amount) {
         debts.put(person, amount);
-    }
-
-    public Double getTotalDebts() {
-        Double total = new Double(0);
-
-        for (Double debt : debts.values()) {
-            total += debt;
-        }
-
-        return total;
-    }
-
-    public Double getTotalPayments() {
-        Double total = new Double(0);
-
-        for (Payment payment : payments) {
-            total += payment.getAmount();
-        }
-
-        return total;
     }
 
     public void displayPayments() {
@@ -91,7 +70,6 @@ public class Person {
                     System.out.println("\t - " + payment.getAmount() + " pentru " + payment.getDescription());
                 }
             }
-
         } else {
             System.out.println(name + " nu a facut nici o plata");
         }
@@ -118,6 +96,12 @@ public class Person {
         }
     }
 
+    public void removedDebt(Person person) {
+        if (debts.containsKey(person)) {
+            debts.remove(person);
+        }
+    }
+
     @Override
     public String toString() {
         return name;
@@ -138,11 +122,5 @@ public class Person {
     @Override
     public int hashCode() {
         return name.hashCode();
-    }
-
-    public void removedDebt(Person person) {
-        if (debts.containsKey(person)) {
-            debts.remove(person);
-        }
     }
 }

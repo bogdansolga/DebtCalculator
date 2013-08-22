@@ -26,14 +26,7 @@ public class DebtCalculator {
 
             PaymentsHandler handler = new PaymentsHandler(persons);
 
-            LinkedHashSet<Payment> perPerson;
-            for (Person person : payments.keySet()) {
-                perPerson = payments.get(person);
-
-                for (Payment payment : perPerson) {
-                    handler.addPayment(person, payment);
-                }
-            }
+            addPayments(handler, payments);
 
             handler.displayPayments();
             handler.displayDebts();
@@ -82,6 +75,17 @@ public class DebtCalculator {
         }
 
         return payments;
+    }
+
+    private static void addPayments(PaymentsHandler handler, Map<Person, LinkedHashSet<Payment>> payments) {
+        LinkedHashSet<Payment> perPerson;
+        for (Person person : payments.keySet()) {
+            perPerson = payments.get(person);
+
+            for (Payment payment : perPerson) {
+                handler.addPayment(person, payment);
+            }
+        }
     }
 
     private static Number readNumber(String message) throws IOException {
