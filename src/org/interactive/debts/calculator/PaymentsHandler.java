@@ -105,15 +105,16 @@ public class PaymentsHandler {
     }
 
     public void displayDebts() {
+        System.out.println();
         for (Person person : persons) {
             person.displayDebts();
         }
     }
 
     public void displayPayments() {
+        System.out.println();
         for (Person person : persons) {
             person.displayPayments();
-            //System.out.println(person + " ar trebui sa primeasca cate " + (person.getTotalPayments() / persons.size()) + " de la fiecare");
         }
     }
 }
