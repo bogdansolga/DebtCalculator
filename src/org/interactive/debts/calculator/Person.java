@@ -1,5 +1,6 @@
 package org.interactive.debts.calculator;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * Date: 19.08.2013, time: 16:42
  */
 public class Person {
+
+    protected static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("####.##");
 
     private String name;
 
@@ -61,13 +64,16 @@ public class Person {
     public void displayPayments() {
         final int howMany = payments.size();
         if (howMany > 0) {
+            Double amount;
             if (howMany == 1) {
                 final Payment payment = payments.iterator().next();
-                System.out.println(name + " a facut o plata - " + payment.getAmount() + " pentru " + payment.getDescription());
+                amount = payment.getAmount();
+                System.out.println(name + " a facut o plata - " + DECIMAL_FORMAT.format(Math.round(amount)) + " pentru " + payment.getDescription());
             } else {
                 System.out.println(name + " a facut " + howMany + " plati:");
                 for (Payment payment : payments) {
-                    System.out.println("\t - " + payment.getAmount() + " pentru " + payment.getDescription());
+                    amount = payment.getAmount();
+                    System.out.println("\t - " + DECIMAL_FORMAT.format(Math.round(amount)) + " pentru " + payment.getDescription());
                 }
             }
         } else {
@@ -82,13 +88,14 @@ public class Person {
             if (howMany == 1) {
                 text = "o datorie";
                 final Person person = debts.keySet().iterator().next();
-                System.out.println(name + " are " + text + " catre " + person.getName() + " - " + debts.get(person));
+
+                System.out.println(name + " are " + text + " catre " + person.getName() + " - " + DECIMAL_FORMAT.format(Math.round(debts.get(person))));
             } else {
                 text = howMany + " datorii:";
                 System.out.println(name + " are " + text);
 
                 for (Person person : debts.keySet()) {
-                    System.out.println("\t - " + debts.get(person) + " catre " + person.getName());
+                    System.out.println("\t - " + DECIMAL_FORMAT.format(Math.round(debts.get(person))) + " catre " + person.getName());
                 }
             }
         } else {
